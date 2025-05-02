@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help and Support - CINE AZURE</title>
+    <link rel="icon" href="..\static\logo2.jpg">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('b1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .question:hover {
+            background-color: #e9e9e9;
+        }
+
+        .answer {
+            display: none;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .contact-link {
+            color: rgb(0, 8, 255);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 50px; /* Ensure this matches the height of the footer */
+        }
+        
+
+    </style>
+</head> 
+<body>
+    <div class="navbar">
+        <img src="..\static\images\logo2.jpg" alt="Website Logo">
+        <div>
+            <a href="/userpage">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/helpline">Helpline</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="question" onclick="toggleAnswer('q1')">1. How do I submit a movie review?</div>
+        <div class="answer" id="q1">To submit a movie review, log in to your account, navigate to the movie page, and click the "Write a Review" button. Share your thoughts and click "Submit."</div>
+        
+        <div class="question" onclick="toggleAnswer('q2')">2. Can I edit my review after submission?</div>
+        <div class="answer" id="q2">Yes, you can edit your review within 24 hours of submission. Navigate to your profile, find the review, and click "Edit."</div>
+        
+        <div class="question" onclick="toggleAnswer('q3')">3. How do I create an account?</div>
+        <div class="answer" id="q3">Click on the "Sign Up" button on the top right corner of the homepage, provide your details, and follow the instructions to create an account.</div>
+        
+        <div class="question" onclick="toggleAnswer('q4')">4. How do I find the latest movie reviews?</div>
+        <div class="answer" id="q4">The latest movie reviews are featured on our homepage under the "Trending Reviews" section. You can also use the search bar to look for specific movies.</div>
+        
+        <div class="question" onclick="toggleAnswer('q5')">5. Can I filter movies by genre?</div>
+        <div class="answer" id="q5">Yes, you can use the "Genres" dropdown menu on the homepage to filter movies by categories such as Action, Comedy, Drama, and more.</div>
+        
+        <div class="question" onclick="toggleAnswer('q6')">6. How do I rate a movie?</div>
+        <div class="answer" id="q6">To rate a movie, visit the movie's page, select your desired star rating, and confirm your rating by clicking "Submit Rating."</div>
+        
+        <div class="question" onclick="toggleAnswer('q7')">7. Can I see reviews from other users?</div>
+        <div class="answer" id="q7">Yes, you can view user reviews by visiting a movie's page and scrolling to the "User Reviews" section.</div>
+        
+        <div class="question" onclick="toggleAnswer('q8')">8. How do I contact customer support?</div>
+        <div class="answer" id="q8">You can contact our customer support team through the "Contact Us" page on our website or via email at support@cineazure.com.</div>
+        
+        <div class="question" onclick="toggleAnswer('q9')">9. Does CINE AZURE have subscription?</div>
+        <div class="answer" id="q9">There is no subscription plan users can enjoy all the features</div>
+        
+        <div class="question" onclick="toggleAnswer('q10')">10. How do I report inappropriate content?</div>
+        <div class="answer" id="q10">To report inappropriate content, click the "Report" button located under the review or comment. Our team will review the report and take appropriate action.</div>
+    </div>
+
+    <div class="container">
+        <p>For any further queries, <span class="contact-link" onclick="redirectToContact()">contact us here</span>.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Movie Review Website. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleAnswer(id) { 
+            var answer = document.getElementById(id);
+            if (answer.style.display === "none" || answer.style.display === "") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+
+        function redirectToContact() {
+            window.location.href = "contact.html";
+        }
+    </script>
+</body>
+</html>

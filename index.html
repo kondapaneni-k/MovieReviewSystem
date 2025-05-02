@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration and Login</title>
+    <link rel="icon" href="../static/images/logo2.jpg">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('b1.jpg');
+            background-size: 1550px;
+            background-position-x: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .navbar { 
+            width: 100%;
+            height: 7%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .navbar .logo img {
+            height: 65px;
+            padding-left: 30px;
+        }
+
+        .navbar .links {
+            display: flex;
+            margin-right: 15px;
+        }
+
+        .navbar a {
+            color: #f9a602;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            padding: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #e9ecef;
+            color: black;
+        }
+
+        .container {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .login {
+            width: 400px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .login h1 {
+            color: #f9a602;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .login h3 {
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .signin,
+        .btn-register {
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 20px;
+            background-color: #f9a602;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .signin:hover,
+        .btn-register:hover {
+            background-color: #e89d02;
+            transform: scale(1.05);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+        }
+
+        .register-link {
+            color: #f9a602;
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            color: #e89d02;
+        }
+
+        @media screen and (max-width: 600px) {
+            .login {
+                width: 90%;
+            }
+
+            .navbar a {
+                font-size: 16px;
+                margin: 5px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+        }
+
+        /*footer section*/
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="../static/images/logo2.jpg" alt="Company Logo">
+        </div>
+        <div class="links">
+            <a href="/register">Register Here</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="login">
+            <h1>Welcome to Cine Azure</h1>
+            <h3>Your gateway to unlimited entertainment</h3>
+            <div><b>Login Here</b></div>
+            <form id="sign-in-form" action="/userpage" method="post">
+                <input type="text" id="username" name="username" placeholder="Username / Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit" class="signin">Sign In</button>
+                <div class="notification" id="notification"></div>
+                <hr>
+            </form>
+            <span class="register-link">Not registered yet?</span>
+            <a href="/register"><button class = "btn-register">Register</button></a>
+
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Movie Review Website. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("sign-in-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+        
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message); // Show success message
+                    window.location.href = data.redirect; // Redirect to userpage
+                } else {
+                    alert(data.message); // Show error message
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An unexpected error occurred. Please try again.");
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

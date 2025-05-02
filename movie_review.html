@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details & Reviews</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #d2fbff, #7ef2fa);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* Movie Details Container */
+        .movie-details-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 15px 5px;
+            width: 70%;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .movie-poster {
+            width: 35%;
+            max-width: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .movie-details {
+            flex-grow: 1;
+            padding: 10px;
+        }
+
+        .movie-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .movie-details p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            width: 70%;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .review-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            text-align: left;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .user-review {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Add Review Button */
+        .bottom-button-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .give-review-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .give-review-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Review Form */
+        #review-form {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #review-text {
+            width: 70%;
+            height: 80px;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .form-buttons {
+            margin-top: 10px;
+        }
+
+        .form-buttons button {
+            padding: 8px 15px;
+            margin: 5px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .cancel-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 50px; /* Ensure this matches the height of the footer */
+          }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="..\static\images\logo2.jpg" alt="Website Logo">
+        <div>
+            <a href="/userpage">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/helpline">Helpline</a>
+        </div>
+    </div>
+
+    <!-- Movie Details Section -->
+    <div class="movie-details-container">
+        <img class="movie-poster" src="{{ movie.PosterURL }}" alt="Movie Poster">
+        <div class="movie-details">
+            <h2>{{ movie.Title }}</h2>
+            <p><strong>Genre:</strong> {{ movie.Genre }}</p>
+            <p><strong>Release Date:</strong> {{ movie.Released }}</p>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        {% for review in reviews %}
+        <div class="review-card">
+            <p class="user-name">{{ review.Username }}</p>
+            <p class="user-review">{{ review.ReviewText }}</p>
+            <small>{{ review.CreatedAt }}</small>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <!-- Add Review Button -->
+    <div class="bottom-button-container">
+    <button class="give-review-btn" onclick="showReviewForm()">Add Your Review</button>
+    </div>
+
+    <!-- Review Form -->
+    <div id="review-form">
+        <input type="hidden" id="movie-id" value="{{ request.args.get('movie_id') }}">
+        <textarea id="review-text" placeholder="Write your review here..."></textarea>
+        <div class="form-buttons">
+            <button class="submit-btn" onclick="submitReview()">Submit</button>
+            <button class="cancel-btn" onclick="cancelReview()">Cancel</button>
+        </div>
+        <p id="error-message" class="error-message">Please enter a review before submitting.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Movie Review Website. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showReviewForm() {
+            document.getElementById('review-form').style.display = 'block';
+            document.getElementById('review-text').focus();
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelReview() {
+            document.getElementById('review-form').style.display = 'none';
+            document.getElementById('review-text').value = '';
+        }
+
+    function submitReview() {
+        const movieId = document.getElementById('movie-id').value;
+        const reviewText = document.getElementById('review-text').value.trim();
+
+        if (!reviewText) {
+            document.getElementById('error-message').textContent = "Please enter a review before submitting.";
+            document.getElementById('error-message').style.display = 'block';
+            return;
+        }
+
+        const reviewData = { movieId, reviewText }; // Removed email field
+
+        fetch('/api/add-review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reviewData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload(); // Reload to reflect the new review
+                } else {
+                    alert(`Failed to add review: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the review.');
+            });
+    }
+
+    </script>
+
+</body>
+
+</html>

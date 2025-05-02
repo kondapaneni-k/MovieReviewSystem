@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reviews</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        
+       
+        /* Reviews Section */
+        .reviews-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .review {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px auto; /* Center each review horizontally */
+            padding: 20px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 600px; /* Limit the width of the card */
+            width: 90%; /* Make it responsive for smaller screens */
+        }
+        
+        .review:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .movie-image {
+            width: 100px; /* Adjusted to match the smaller card */
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+        }
+        
+        .review-content {
+            flex: 1;
+        }
+        
+        .movie-title {
+            font-size: 18px; /* Slightly smaller font size */
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        .movie-review {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .review-date {
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    
+        .reviews-container {
+            flex: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 50px; /* Ensure this matches the height of the footer */
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <img src="..\static\images\logo2.jpg" alt="Website Logo">
+        <div>
+            <a href="/userpage">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/helpline">Helpline</a>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-container">
+        <h2>Your Reviews</h2>
+    
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="review">
+                <img class="movie-image" src="{{ review.PosterURL if review.PosterURL else '../static/images/default_movie.jpg' }}" alt="{{ review.Title }}">
+                <div class="review-content">
+                    <p class="movie-title">{{ review.Title }}</p>
+                    <p class="movie-review">{{ review.ReviewText }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p>No reviews found. Start reviewing some movies!</p>
+        {% endif %}
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Movie Review Website. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Function to load user reviews
+        function loadUserReviews() {
+            fetch('/api/user-reviews', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const reviewsContainer = document.querySelector('.reviews-container');
+                    reviewsContainer.innerHTML = ''; // Clear existing reviews
+    
+                    // Check if there are reviews
+                    if (data.reviews.length === 0) {
+                        reviewsContainer.innerHTML = '<p>No reviews found.</p>';
+                        return;
+                    }
+    
+                    // Iterate through the reviews and display them
+                    data.reviews.forEach(review => {
+                        const reviewElement = document.createElement('div');
+                        reviewElement.classList.add('review');
+    
+                        reviewElement.innerHTML = `
+                            <img class="movie-image" src="${review.PosterURL}" alt="${review.Title}">
+                            <div class="review-content">
+                                <p class="movie-title">${review.Title}</p>
+                                <p class="movie-review">${review.ReviewText}</p>
+                                <p class="review-date">${new Date(review.CreatedAt).toLocaleDateString()}</p>
+                            </div>
+                        `;
+    
+                        reviewsContainer.appendChild(reviewElement);
+                    });
+                } else {
+                    console.log('Error:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching reviews:', error);
+            });
+        }
+    
+        // Load reviews when the page is loaded
+        document.addEventListener('DOMContentLoaded', loadUserReviews);
+    </script>
+    
+</body>
+
+</html>

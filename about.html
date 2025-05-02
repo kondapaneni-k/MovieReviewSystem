@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('b1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .about {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .about h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 50px; /* Ensure this matches the height of the footer */
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="..\static\images\logo2.jpg" alt="Website Logo">
+        <div>
+            <a href="/userpage">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/helpline">Helpline</a>
+        </div>
+    </div>
+
+    <div class="about">
+        <h1>About Us</h1>
+        <p>Welcome to our Movie Review Website, your one-stop destination for exploring and sharing reviews of the latest movies. Our goal is to bring together movie enthusiasts to discuss, critique, and discover great films. With our platform, you can read detailed reviews, share your thoughts, and connect with fellow cinephiles from around the globe.</p>
+        <p>We believe in the power of community-driven content, where your voice matters. Whether you're into thrillers, comedies, or classic dramas, there's a place for everyone here!</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Movie Review Website. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

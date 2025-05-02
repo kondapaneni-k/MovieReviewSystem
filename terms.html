@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions</title>
+    <link rel="icon" href="..\static\images\logo2.jpg">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background: url('b1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ff7300;
+        }
+        .term {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .checkbox-label {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .btn-container {
+            text-align: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            background-color: #ff7300;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 50px; /* Ensure this matches the height of the footer */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="..\static\images\logo2.jpg" alt="Company Logo" width="67px" height="65px">
+    <div class="container">
+        <h1>Terms and Conditions</h1> 
+        <div class="term">
+            <strong>1. User-Generated Content:</strong> By submitting reviews, ratings, or feedback on the platform, users agree that their content may be displayed publicly. Cine Azure reserves the right to edit or remove inappropriate or offensive content.
+        </div>
+        <div class="term">
+            <strong>2. Copyright Compliance:</strong> Users must ensure that their reviews, comments, or any other content shared on the platform do not violate copyright or intellectual property laws. Any violation will result in content removal and potential legal consequences.
+        </div>
+        <div class="term">
+            <strong>3. Account Responsibility:</strong> Users are responsible for maintaining the confidentiality of their login credentials and all activities under their account. Cine Azure is not liable for any unauthorized account access.
+        </div>
+        <div class="term">
+            <strong>4. Fair Usage:</strong> Users must not post spam, promotional material, or irrelevant content. The platform is strictly for reviewing and discussing movies and related content.
+        </div>
+        <div class="term">
+            <strong>5. Privacy Protection:</strong> User data, including profile information and movie preferences, will be handled in accordance with the platform’s Privacy Policy. Personal information will not be shared without consent. 
+        </div>
+        <div class="term">
+            <strong>6. Content Accuracy:</strong> The platform strives to provide accurate information about movies, reviews, and ratings. However, Cine Azure is not responsible for user-provided content or third-party inaccuracies.
+        </div>
+        <div class="term">
+            <strong>7. Review Moderation:</strong> All reviews and comments are subject to moderation. Cine Azure reserves the right to remove content that violates terms or community guidelines without prior notice.
+        </div>
+        <div class="term">
+            <strong>8. User Ratings and Feedback:</strong> Users can provide ratings and feedback on movies. These ratings are aggregated to provide an overall score, and users must provide honest and constructive reviews.
+        </div>
+        <div class="term">
+            <strong>9. Prohibited Activities:</strong> Users must not attempt to manipulate ratings, submit fraudulent reviews, or engage in harmful activities such as hacking or exploiting the platform.
+        </div>
+        <div class="term">
+            <strong>10. Acceptance of Terms:</strong> By using the movie review system, users agree to comply with these terms and conditions. Violation of these terms may result in account suspension or permanent banning from the platform.
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="agree-checkbox">
+            <label for="agree-checkbox">I agree and accept all the policies</label>
+        </div>
+        <div class="btn-container">
+            <button class="btn" onclick="proceedBooking()">Proceed</button>
+        </div>
+    </div>
+
+    <script>
+        function proceedBooking() {
+            var checkBox = document.getElementById("agree-checkbox");
+            if (checkBox.checked == true) {
+                window.location.href = "register"; // Redirect to index.html page
+            } else {
+                alert("Please agree to the terms and conditions to proceed.");
+            }
+        }
+    </script>
+</body>
+</html>
